@@ -23,20 +23,26 @@ const app = express();
 connectDB();
 
 // --- Core middleware ---
-const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
-  .split(',')
-  .map((origin) => origin.trim());
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://nexus-ai-full-stack-ai-saas-platfo.vercel.app',
+];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (curl, mobile apps, server-to-server)
+      console.log('Request Origin:', origin);
+
       if (!origin || allowedOrigins.includes(origin)) {
-        return callback(null, true);
+        callback(null, true);
+      } else {
+        console.log('Blocked Origin:', origin);
+        callback(null, false);
       }
-      return callback(new Error('Not allowed by CORS'));
     },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 
