@@ -24,25 +24,26 @@ connectDB();
 
 // --- Core middleware ---
 const allowedOrigins = [
-  'http://localhost:5173',
-  'https://nexus-ai-full-stack-ai-saas-platfo.vercel.app',
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "https://nexus-ai-full-stack-ai-saas-platform.vercel.app"
 ];
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      console.log('Request Origin:', origin);
+    origin: function (origin, callback) {
+      console.log("Request Origin:", origin);
 
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        console.log('Blocked Origin:', origin);
-        callback(null, false);
+        console.log("Blocked Origin:", origin);
+        callback(new Error("Not allowed by CORS"));
       }
     },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
 
