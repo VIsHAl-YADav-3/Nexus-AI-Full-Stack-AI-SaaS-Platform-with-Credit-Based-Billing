@@ -26,7 +26,7 @@ connectDB();
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
-  "https://nexus-ai-full-stack-ai-saas-platform.vercel.app"
+  "https://nexus-ai-full-stack-ai-saa-s-platform.vercel.app"
 ];
 
 app.use(
